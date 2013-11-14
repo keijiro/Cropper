@@ -18,6 +18,9 @@
 		0F8C2026183447F5003F246D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F8C2005183447F5003F246D /* Cocoa.framework */; };
 		0F8C202E183447F5003F246D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F8C202C183447F5003F246D /* InfoPlist.strings */; };
 		0F8C2030183447F5003F246D /* CropperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8C202F183447F5003F246D /* CropperTests.m */; };
+		0F8C203B1834486E003F246D /* CropperGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8C203A1834486E003F246D /* CropperGLView.m */; };
+		0F9440001834790A00C5FCA7 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F943FFF1834790A00C5FCA7 /* OpenGL.framework */; };
+		0F9440021834791200C5FCA7 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F9440011834791200C5FCA7 /* CoreVideo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +53,10 @@
 		0F8C202B183447F5003F246D /* CropperTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CropperTests-Info.plist"; sourceTree = "<group>"; };
 		0F8C202D183447F5003F246D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0F8C202F183447F5003F246D /* CropperTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CropperTests.m; sourceTree = "<group>"; };
+		0F8C20391834486E003F246D /* CropperGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropperGLView.h; sourceTree = "<group>"; };
+		0F8C203A1834486E003F246D /* CropperGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropperGLView.m; sourceTree = "<group>"; };
+		0F943FFF1834790A00C5FCA7 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		0F9440011834791200C5FCA7 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +64,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F9440021834791200C5FCA7 /* CoreVideo.framework in Frameworks */,
+				0F9440001834790A00C5FCA7 /* OpenGL.framework in Frameworks */,
 				0F8C2006183447F5003F246D /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -95,6 +104,8 @@
 		0F8C2004183447F5003F246D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0F9440011834791200C5FCA7 /* CoreVideo.framework */,
+				0F943FFF1834790A00C5FCA7 /* OpenGL.framework */,
 				0F8C2005183447F5003F246D /* Cocoa.framework */,
 				0F8C2024183447F5003F246D /* XCTest.framework */,
 				0F8C2007183447F5003F246D /* Other Frameworks */,
@@ -120,6 +131,8 @@
 				0F8C201A183447F5003F246D /* MainMenu.xib */,
 				0F8C201D183447F5003F246D /* Images.xcassets */,
 				0F8C200C183447F5003F246D /* Supporting Files */,
+				0F8C20391834486E003F246D /* CropperGLView.h */,
+				0F8C203A1834486E003F246D /* CropperGLView.m */,
 			);
 			path = Cropper;
 			sourceTree = "<group>";
@@ -253,6 +266,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F8C203B1834486E003F246D /* CropperGLView.m in Sources */,
 				0F8C2019183447F5003F246D /* CropperAppDelegate.m in Sources */,
 				0F8C2012183447F5003F246D /* main.m in Sources */,
 			);
@@ -465,6 +479,7 @@
 				0F8C2035183447F5003F246D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0F8C2036183447F5003F246D /* Build configuration list for PBXNativeTarget "CropperTests" */ = {
 			isa = XCConfigurationList;
@@ -473,6 +488,7 @@
 				0F8C2038183447F5003F246D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
