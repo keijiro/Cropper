@@ -1,29 +1,17 @@
 #import "CropperAppDelegate.h"
-#import "CropperGLView.h"
-#import <Syphon/Syphon.h>
+#import "CropperWindowController.h"
 
 @implementation CropperAppDelegate
 
-- (void)updateServerList:(id)sender
-{
-    NSArray *servers = [[SyphonServerDirectory sharedDirectory] servers];
-    if (servers.count > 0) [self startClient:[servers objectAtIndex:0]];
-}
-
-- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
-{
-    return YES;
+- (IBAction)newWindow:(id)sender {
+    CropperWindowController *controller = [[CropperWindowController alloc] initWithWindowNibName:@"CropperWindow"];
+    [controller showWindow:controller.window];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateServerList:) userInfo:self repeats:YES];
-}
-
-- (void)startClient:(NSDictionary *)description
-{
-    _syphonClient = [[SyphonClient alloc] initWithServerDescription:description options:nil newFrameHandler:nil];
-    _glView.syphonClient = _syphonClient;
+    CropperWindowController *controller = [[CropperWindowController alloc] initWithWindowNibName:@"CropperWindow"];
+    [controller showWindow:controller.window];
 }
 
 @end

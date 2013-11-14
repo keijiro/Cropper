@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F0CDE881834D42B0045E6AE /* CropperWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0CDE861834D42B0045E6AE /* CropperWindowController.m */; };
+		0F0CDE891834D42B0045E6AE /* CropperWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F0CDE871834D42B0045E6AE /* CropperWindow.xib */; };
 		0F8C2006183447F5003F246D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F8C2005183447F5003F246D /* Cocoa.framework */; };
 		0F8C2010183447F5003F246D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F8C200E183447F5003F246D /* InfoPlist.strings */; };
 		0F8C2012183447F5003F246D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8C2011183447F5003F246D /* main.m */; };
@@ -45,6 +47,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0F0CDE851834D42B0045E6AE /* CropperWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropperWindowController.h; sourceTree = "<group>"; };
+		0F0CDE861834D42B0045E6AE /* CropperWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropperWindowController.m; sourceTree = "<group>"; };
+		0F0CDE871834D42B0045E6AE /* CropperWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CropperWindow.xib; sourceTree = "<group>"; };
 		0F8C2002183447F5003F246D /* Cropper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cropper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F8C2005183447F5003F246D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0F8C2008183447F5003F246D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -132,6 +137,9 @@
 				0F8C200C183447F5003F246D /* Supporting Files */,
 				0F8C20391834486E003F246D /* CropperGLView.h */,
 				0F8C203A1834486E003F246D /* CropperGLView.m */,
+				0F0CDE851834D42B0045E6AE /* CropperWindowController.h */,
+				0F0CDE861834D42B0045E6AE /* CropperWindowController.m */,
+				0F0CDE871834D42B0045E6AE /* CropperWindow.xib */,
 			);
 			path = Cropper;
 			sourceTree = "<group>";
@@ -228,6 +236,7 @@
 			files = (
 				0F8C2010183447F5003F246D /* InfoPlist.strings in Resources */,
 				0F8C201E183447F5003F246D /* Images.xcassets in Resources */,
+				0F0CDE891834D42B0045E6AE /* CropperWindow.xib in Resources */,
 				0F8C2016183447F5003F246D /* Credits.rtf in Resources */,
 				0F8C201C183447F5003F246D /* MainMenu.xib in Resources */,
 			);
@@ -243,6 +252,7 @@
 				0F8C203B1834486E003F246D /* CropperGLView.m in Sources */,
 				0F8C2019183447F5003F246D /* CropperAppDelegate.m in Sources */,
 				0F8C2012183447F5003F246D /* main.m in Sources */,
+				0F0CDE881834D42B0045E6AE /* CropperWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
