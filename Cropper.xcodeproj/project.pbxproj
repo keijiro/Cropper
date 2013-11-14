@@ -14,24 +14,35 @@
 		0F8C2019183447F5003F246D /* CropperAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8C2018183447F5003F246D /* CropperAppDelegate.m */; };
 		0F8C201C183447F5003F246D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F8C201A183447F5003F246D /* MainMenu.xib */; };
 		0F8C201E183447F5003F246D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F8C201D183447F5003F246D /* Images.xcassets */; };
-		0F8C2025183447F5003F246D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F8C2024183447F5003F246D /* XCTest.framework */; };
-		0F8C2026183447F5003F246D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F8C2005183447F5003F246D /* Cocoa.framework */; };
-		0F8C202E183447F5003F246D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F8C202C183447F5003F246D /* InfoPlist.strings */; };
-		0F8C2030183447F5003F246D /* CropperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8C202F183447F5003F246D /* CropperTests.m */; };
 		0F8C203B1834486E003F246D /* CropperGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8C203A1834486E003F246D /* CropperGLView.m */; };
 		0F9440001834790A00C5FCA7 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F943FFF1834790A00C5FCA7 /* OpenGL.framework */; };
 		0F9440021834791200C5FCA7 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F9440011834791200C5FCA7 /* CoreVideo.framework */; };
+		0F94402718349EA600C5FCA7 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F94402618349E8600C5FCA7 /* Syphon.framework */; };
+		0FDEC1011834B3B20045B12C /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0F94402618349E8600C5FCA7 /* Syphon.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0F8C2027183447F5003F246D /* PBXContainerItemProxy */ = {
+		0F94402518349E8600C5FCA7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 0F8C1FFA183447F5003F246D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0F8C2001183447F5003F246D;
-			remoteInfo = Cropper;
+			containerPortal = 0F94402018349E8600C5FCA7 /* Syphon.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = Syphon;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0FDEC1001834B3A40045B12C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0FDEC1011834B3B20045B12C /* Syphon.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0F8C2002183447F5003F246D /* Cropper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cropper.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,15 +59,12 @@
 		0F8C2018183447F5003F246D /* CropperAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CropperAppDelegate.m; sourceTree = "<group>"; };
 		0F8C201B183447F5003F246D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		0F8C201D183447F5003F246D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		0F8C2023183447F5003F246D /* CropperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CropperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F8C2024183447F5003F246D /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		0F8C202B183447F5003F246D /* CropperTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CropperTests-Info.plist"; sourceTree = "<group>"; };
-		0F8C202D183447F5003F246D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0F8C202F183447F5003F246D /* CropperTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CropperTests.m; sourceTree = "<group>"; };
 		0F8C20391834486E003F246D /* CropperGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropperGLView.h; sourceTree = "<group>"; };
 		0F8C203A1834486E003F246D /* CropperGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropperGLView.m; sourceTree = "<group>"; };
 		0F943FFF1834790A00C5FCA7 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		0F9440011834791200C5FCA7 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		0F94402018349E8600C5FCA7 /* Syphon.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Syphon.xcodeproj; path = "../Syphon-Framework/Syphon.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,18 +72,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F94402718349EA600C5FCA7 /* Syphon.framework in Frameworks */,
 				0F9440021834791200C5FCA7 /* CoreVideo.framework in Frameworks */,
 				0F9440001834790A00C5FCA7 /* OpenGL.framework in Frameworks */,
 				0F8C2006183447F5003F246D /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0F8C2020183447F5003F246D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0F8C2026183447F5003F246D /* Cocoa.framework in Frameworks */,
-				0F8C2025183447F5003F246D /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,8 +85,8 @@
 		0F8C1FF9183447F5003F246D = {
 			isa = PBXGroup;
 			children = (
+				0F94402018349E8600C5FCA7 /* Syphon.xcodeproj */,
 				0F8C200B183447F5003F246D /* Cropper */,
-				0F8C2029183447F5003F246D /* CropperTests */,
 				0F8C2004183447F5003F246D /* Frameworks */,
 				0F8C2003183447F5003F246D /* Products */,
 			);
@@ -96,7 +96,6 @@
 			isa = PBXGroup;
 			children = (
 				0F8C2002183447F5003F246D /* Cropper.app */,
-				0F8C2023183447F5003F246D /* CropperTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -149,22 +148,12 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		0F8C2029183447F5003F246D /* CropperTests */ = {
+		0F94402118349E8600C5FCA7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0F8C202F183447F5003F246D /* CropperTests.m */,
-				0F8C202A183447F5003F246D /* Supporting Files */,
+				0F94402618349E8600C5FCA7 /* Syphon.framework */,
 			);
-			path = CropperTests;
-			sourceTree = "<group>";
-		};
-		0F8C202A183447F5003F246D /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				0F8C202B183447F5003F246D /* CropperTests-Info.plist */,
-				0F8C202C183447F5003F246D /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +166,7 @@
 				0F8C1FFE183447F5003F246D /* Sources */,
 				0F8C1FFF183447F5003F246D /* Frameworks */,
 				0F8C2000183447F5003F246D /* Resources */,
+				0FDEC1001834B3A40045B12C /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -187,24 +177,6 @@
 			productReference = 0F8C2002183447F5003F246D /* Cropper.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0F8C2022183447F5003F246D /* CropperTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0F8C2036183447F5003F246D /* Build configuration list for PBXNativeTarget "CropperTests" */;
-			buildPhases = (
-				0F8C201F183447F5003F246D /* Sources */,
-				0F8C2020183447F5003F246D /* Frameworks */,
-				0F8C2021183447F5003F246D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				0F8C2028183447F5003F246D /* PBXTargetDependency */,
-			);
-			name = CropperTests;
-			productName = CropperTests;
-			productReference = 0F8C2023183447F5003F246D /* CropperTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -214,11 +186,6 @@
 				CLASSPREFIX = Cropper;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Keijiro Takahashi";
-				TargetAttributes = {
-					0F8C2022183447F5003F246D = {
-						TestTargetID = 0F8C2001183447F5003F246D;
-					};
-				};
 			};
 			buildConfigurationList = 0F8C1FFD183447F5003F246D /* Build configuration list for PBXProject "Cropper" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -231,13 +198,28 @@
 			mainGroup = 0F8C1FF9183447F5003F246D;
 			productRefGroup = 0F8C2003183447F5003F246D /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 0F94402118349E8600C5FCA7 /* Products */;
+					ProjectRef = 0F94402018349E8600C5FCA7 /* Syphon.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				0F8C2001183447F5003F246D /* Cropper */,
-				0F8C2022183447F5003F246D /* CropperTests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		0F94402618349E8600C5FCA7 /* Syphon.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Syphon.framework;
+			remoteRef = 0F94402518349E8600C5FCA7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		0F8C2000183447F5003F246D /* Resources */ = {
@@ -248,14 +230,6 @@
 				0F8C201E183447F5003F246D /* Images.xcassets in Resources */,
 				0F8C2016183447F5003F246D /* Credits.rtf in Resources */,
 				0F8C201C183447F5003F246D /* MainMenu.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0F8C2021183447F5003F246D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0F8C202E183447F5003F246D /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,23 +246,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0F8C201F183447F5003F246D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0F8C2030183447F5003F246D /* CropperTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		0F8C2028183447F5003F246D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0F8C2001183447F5003F246D /* Cropper */;
-			targetProxy = 0F8C2027183447F5003F246D /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0F8C200E183447F5003F246D /* InfoPlist.strings */ = {
@@ -313,14 +271,6 @@
 				0F8C201B183447F5003F246D /* Base */,
 			);
 			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-		0F8C202C183447F5003F246D /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0F8C202D183447F5003F246D /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -420,46 +370,6 @@
 			};
 			name = Release;
 		};
-		0F8C2037183447F5003F246D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Cropper.app/Contents/MacOS/Cropper";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Cropper/Cropper-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "CropperTests/CropperTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		0F8C2038183447F5003F246D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Cropper.app/Contents/MacOS/Cropper";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Cropper/Cropper-Prefix.pch";
-				INFOPLIST_FILE = "CropperTests/CropperTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -477,15 +387,6 @@
 			buildConfigurations = (
 				0F8C2034183447F5003F246D /* Debug */,
 				0F8C2035183447F5003F246D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0F8C2036183447F5003F246D /* Build configuration list for PBXNativeTarget "CropperTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0F8C2037183447F5003F246D /* Debug */,
-				0F8C2038183447F5003F246D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

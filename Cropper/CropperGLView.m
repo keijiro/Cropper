@@ -1,6 +1,7 @@
 #import "CropperGLView.h"
 #import <OpenGL/OpenGL.h>
 #import <OpenGL/glu.h>
+#import <Syphon/Syphon.h>
 
 @implementation CropperGLView
 
@@ -45,7 +46,11 @@ static CVReturn DisplayLinkOutputCallback(CVDisplayLinkRef displayLink,
     CVDisplayLinkSetOutputCallback(_displayLink, DisplayLinkOutputCallback, (__bridge void *)(self));
     CVDisplayLinkSetCurrentCGDisplayFromOpenGLContext(_displayLink, self.openGLContext.CGLContextObj, self.pixelFormat.CGLPixelFormatObj);
     CVDisplayLinkStart(_displayLink);
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:self.window];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(windowWillClose:)
+                                                 name:NSWindowWillCloseNotification
+                                               object:self.window];
 }
 
 - (void)windowWillClose:(NSNotification *)notification
@@ -80,6 +85,37 @@ static CVReturn DisplayLinkOutputCallback(CVDisplayLinkRef displayLink,
     glClear(GL_COLOR_BUFFER_BIT);
     
     glLoadIdentity();
+
+    if (self.syphonClient)
+    {
+        SyphonImage *image = [self.syphonClient newFrameImageForContext:self.openGLContext.CGLContextObj];
+        if (image)
+        {
+            glEnable(GL_TEXTURE_RECTANGLE_ARB);
+            
+            glBindTexture(GL_TEXTURE_RECTANGLE_ARB, image.textureName);
+            
+            glBegin(GL_QUADS);
+            
+            glColor3f(1, 1, 1);
+            
+            glTexCoord2f(0, 0);
+            glVertex2f(-1, -1);
+            
+            glTexCoord2f(image.textureSize.width, 0);
+            glVertex2f(+1, -1);
+            
+            glTexCoord2f(image.textureSize.width, image.textureSize.height);
+            glVertex2f(+1, +1);
+            
+            glTexCoord2f(0, image.textureSize.height);
+            glVertex2f(-1, +1);
+            
+            glEnd();
+            
+            glDisable(GL_TEXTURE_RECTANGLE_ARB);
+        }
+    }
     
     glBegin(GL_TRIANGLES);
     glColor3f(0.3f, 0.3f, 0.3f);
@@ -100,18 +136,6 @@ static CVReturn DisplayLinkOutputCallback(CVDisplayLinkRef displayLink,
     glVertex2f(0.8f, 0.1f);
     glVertex2f(0.8f, -0.1f);
  
-    glEnd();
-    
-    static float counter = 0.0f;
-    glRotatef(counter, 0, 0, 1);
-    counter += 360.0f / 60;
-    
-    glBegin(GL_QUADS);
-    glColor3f(0.3f, 0.3f, 0.3f);
-    glVertex2f(-0.01f, 0);
-    glVertex2f(+0.01f, 0);
-    glVertex2f(+0.01f, +0.1f);
-    glVertex2f(-0.01f, +0.1f);
     glEnd();
     
     CGLFlushDrawable(self.openGLContext.CGLContextObj);
