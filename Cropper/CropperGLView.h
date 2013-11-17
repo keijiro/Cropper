@@ -1,13 +1,14 @@
 #import <Cocoa/Cocoa.h>
+#import "GLVX.h"
 
 @class SyphonClient;
 
 @interface CropperGLView : NSOpenGLView
 {
     CVDisplayLinkRef _displayLink;
-    float _margins[4];
 }
 
+@property (readonly) GLVREF glv;
 @property (strong) SyphonClient *syphonClient;
 
 @end
