@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0F0CDE881834D42B0045E6AE /* CropperWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0F0CDE861834D42B0045E6AE /* CropperWindowController.mm */; };
 		0F8C2006183447F5003F246D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F8C2005183447F5003F246D /* Cocoa.framework */; };
 		0F8C2010183447F5003F246D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F8C200E183447F5003F246D /* InfoPlist.strings */; };
 		0F8C2012183447F5003F246D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8C2011183447F5003F246D /* main.m */; };
@@ -68,8 +67,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0F0CDE851834D42B0045E6AE /* CropperWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropperWindowController.h; sourceTree = "<group>"; };
-		0F0CDE861834D42B0045E6AE /* CropperWindowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CropperWindowController.mm; sourceTree = "<group>"; };
 		0F8C2002183447F5003F246D /* Cropper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cropper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F8C2005183447F5003F246D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0F8C2008183447F5003F246D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -201,8 +198,6 @@
 				0F8C2018183447F5003F246D /* CropperAppDelegate.m */,
 				0F8C20391834486E003F246D /* CropperGLView.h */,
 				0F8C203A1834486E003F246D /* CropperGLView.mm */,
-				0F0CDE851834D42B0045E6AE /* CropperWindowController.h */,
-				0F0CDE861834D42B0045E6AE /* CropperWindowController.mm */,
 				0FB9D71A1838796500206B6D /* CropperWindow.xib */,
 				0F8C201A183447F5003F246D /* MainMenu.xib */,
 				0F8C201D183447F5003F246D /* Images.xcassets */,
@@ -401,7 +396,6 @@
 				0FB9D7071838635A00206B6D /* glv_plots.cpp in Sources */,
 				0FB9D6FB1838635A00206B6D /* glv_buttons.cpp in Sources */,
 				0FB9D6FE1838635A00206B6D /* glv_core.cpp in Sources */,
-				0F0CDE881834D42B0045E6AE /* CropperWindowController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

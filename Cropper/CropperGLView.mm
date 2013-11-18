@@ -185,9 +185,12 @@ namespace
 
 @interface CropperGLView ()
 {
+    SyphonClient *_syphonClient;
     SyphonClientGLV _glv;
 }
 
+- (void)updateServerList:(id)sender;
+- (void)startClient:(NSDictionary *)description;
 - (void)drawView;
 
 @end
@@ -229,6 +232,8 @@ static CVReturn DisplayLinkOutputCallback(CVDisplayLinkRef displayLink,
     CGSize size = self.frame.size;
     _glv.extent(size.width, size.height);
     _glv.broadcastEvent(glv::Event::WindowCreate);
+    
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateServerList:) userInfo:self repeats:YES];
 }
 
 - (void)dealloc
@@ -240,6 +245,19 @@ static CVReturn DisplayLinkOutputCallback(CVDisplayLinkRef displayLink,
 - (BOOL)acceptsFirstResponder
 {
     return YES;
+}
+
+#pragma mark Server communication
+
+- (void)updateServerList:(id)sender
+{
+    NSArray *servers = [[SyphonServerDirectory sharedDirectory] servers];
+    if (servers.count > 0) [self startClient:[servers objectAtIndex:0]];
+}
+
+- (void)startClient:(NSDictionary *)description
+{
+    _syphonClient = [[SyphonClient alloc] initWithServerDescription:description options:nil newFrameHandler:nil];
 }
 
 #pragma mark NSOpenGLView methods
