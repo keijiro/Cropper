@@ -1,5 +1,4 @@
 #import "CropperGLView.h"
-#import "GLVX.h"
 #import "glv.h"
 #import "Syphon/Syphon.h"
 
@@ -8,60 +7,175 @@
 
 namespace
 {
-    using namespace glv;
-    
-    struct SyphonClientGLV : public GLV
+    struct SyphonImageView : public glv::View
     {
-        View anchorView;
         SyphonImage *image;
+        glv::Rect imageRect;
         
-        SyphonClientGLV()
-        : image(nil)
+        SyphonImageView()
+        :   glv::View(glv::Rect(600, 400)),
+            image(nil),
+            imageRect(0, 0, 600, 400)
         {
-            colors().set(glv::StyleColor::WhiteOnBlack);
-            
-            *this << anchorView;
-            
-            anchorView.disable(DrawBack);
-            anchorView.addHandler(Event::MouseDrag, Behavior::mouseResizeCorner);
-            anchorView.addHandler(Event::MouseDrag, Behavior::mouseMove);
-            
-            anchorView << (new Label("CROPPING MODE"))->anchor(Place::CC).pos(Place::CC);
+            using namespace glv;
+
+            colors().set(StyleColor::WhiteOnBlack);
+            disable(DrawBack);
         }
         
-        virtual void onDraw(GLV& g)
+        void reset()
         {
-            using namespace draw;
+            pos(0, 0);
+            extent(600, 400);
+            imageRect.pos(0, 0);
+            imageRect.extent(600, 400);
+        }
+        
+        virtual void onDraw(glv::GLV& g)
+        {
+            if (!image) return;
             
-            if (image)
+            glDisable(GL_BLEND);
+            glEnable(GL_TEXTURE_RECTANGLE_ARB);
+            glBindTexture(GL_TEXTURE_RECTANGLE_ARB, image.textureName);
+            
+            glBegin(GL_QUADS);
+
+            glColor3f(1, 1, 1);
+            
+            glv::Rect& ir = imageRect;
+            glTexCoord2f(ir.left(), ir.top());
+            glVertex2f(0, 0);
+            
+            glTexCoord2f(ir.right(), ir.top());
+            glVertex2f(width(), 0);
+            
+            glTexCoord2f(ir.right(), ir.bottom());
+            glVertex2f(width(), height());
+            
+            glTexCoord2f(ir.left(), ir.bottom());
+            glVertex2f(0, height());
+            
+            glEnd();
+        
+            glDisable(GL_TEXTURE_RECTANGLE_ARB);
+            glEnable(GL_BLEND);
+        }
+        
+        virtual bool onEvent(glv::Event::t e, glv::GLV& g)
+        {
+            using namespace glv;
+            
+            if (e == Event::MouseDrag)
             {
-                auto window = anchorView.rect();
+                const float border = 32;
                 
-                glDisable(GL_BLEND);
-                glEnable(GL_TEXTURE_RECTANGLE_ARB);
-                glBindTexture(GL_TEXTURE_RECTANGLE_ARB, image.textureName);
+                bool shift = g.keyboard().shift();
+                float dx = g.mouse().dx();
+                float dy = g.mouse().dy();
+                float mx = g.mouse().xRel() - dx;	// subtract diff because position already updated
+                float my = g.mouse().yRel() - dy;
+                bool resizing = false;
                 
-                glBegin(GL_QUADS);
+                if (mx < border)
+                {
+                    resizeLeftTo(left() + dx);
+                    if (!shift) imageRect.resizeLeftTo(imageRect.left() + dx);
+                    resizing = true;
+                }
+                else if (width() - border < mx && mx < width())
+                {
+                    resizeRightTo(right() + dx);
+                    if (!shift) imageRect.resizeRightTo(imageRect.right() + dx);
+                    resizing = true;
+                }
                 
-                glColor3f(1, 1, 1);
+                if (my < border)
+                {
+                    resizeTopTo(top() + dy);
+                    if (!shift) imageRect.resizeTopTo(imageRect.top() + dy);
+                    resizing = true;
+                }
+                else if (height() - border < my && my < height())
+                {
+                    resizeBottomTo(bottom() + dy);
+                    if (!shift) imageRect.resizeBottomTo(imageRect.bottom() + dy);
+                    resizing = true;
+                }
                 
-                glTexCoord2f(window.left(), window.top());
-                glVertex2f(window.left(), window.top());
-                
-                glTexCoord2f(window.right(), window.top());
-                glVertex2f(window.right(), window.top());
-                
-                glTexCoord2f(window.right(), window.bottom());
-                glVertex2f(window.right(), window.bottom());
-                
-                glTexCoord2f(window.left(), window.bottom());
-                glVertex2f(window.left(), window.bottom());
-                
-                glEnd();
-                
-                glDisable(GL_TEXTURE_RECTANGLE_ARB);
-                glEnable(GL_BLEND);
+                if (resizing)
+                {
+                    rectifyGeometry();
+                }
+                else
+                {
+                    move(dx, dy);
+                    if (!shift) imageRect.posAdd(dx, dy);
+                }
             }
+            
+            return true;
+        }
+    };
+    
+    struct SyphonClientGLV : public glv::GLV
+    {
+        SyphonImageView mImageView;
+        glv::Label mInstruction;
+        bool mShowUI;
+        
+        static const char* instruction()
+        {
+            return
+                "MOUSE DRAG : MOVE/RESIZE CROPPING WINDOW\n"
+                "SHIFT DRAG : MOVE/RESIZE CONTENT OF WINDOW\n"
+                "R          : RESET\n"
+                "SPACE      : SHOW/HIDE UI";
+        }
+        
+        SyphonClientGLV()
+        :   GLV(600, 300),
+            mInstruction(instruction()),
+            mShowUI(true)
+        {
+            using namespace glv;
+            
+            colors().set(StyleColor::WhiteOnBlack);
+            
+            mInstruction.anchor(Place::BL).pos(Place::BL);
+            
+            *this << mImageView << mInstruction;
+        }
+        
+        virtual bool onEvent(glv::Event::t e, glv::GLV& g)
+        {
+            using namespace glv;
+            
+            if (e == Event::KeyDown)
+            {
+                int key = g.keyboard().key();
+                if (key == ' ')
+                {
+                    mShowUI = !mShowUI;
+                    
+                    if (mShowUI)
+                    {
+                        mImageView.colors().border.a = 1;
+                        mInstruction.colors().text.a = 1;
+                    }
+                    else
+                    {
+                        mImageView.colors().border.a = 0;
+                        mInstruction.colors().text.a = 0;
+                    }
+                }
+                else if (key == 'r')
+                {
+                    mImageView.reset();
+                }
+            }
+            
+            return true;
         }
     };
 }
@@ -123,9 +237,9 @@ static CVReturn DisplayLinkOutputCallback(CVDisplayLinkRef displayLink,
     CVDisplayLinkRelease(_displayLink);
 }
 
-- (GLVREF)glv
+- (BOOL)acceptsFirstResponder
 {
-    return MakeReference(_glv);
+    return YES;
 }
 
 #pragma mark NSOpenGLView methods
@@ -153,6 +267,10 @@ static CVReturn DisplayLinkOutputCallback(CVDisplayLinkRef displayLink,
                                              selector:@selector(windowWillClose:)
                                                  name:NSWindowWillCloseNotification
                                                object:self.window];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(windowDidResize:)
+                                                 name:NSWindowDidResizeNotification
+                                               object:self.window];
 }
 
 #pragma mark NSWindow methods
@@ -163,9 +281,101 @@ static CVReturn DisplayLinkOutputCallback(CVDisplayLinkRef displayLink,
     CVDisplayLinkStop(_displayLink);
 }
 
+- (void)windowDidResize:(NSNotification *)notification
+{
+    CGSize size = self.frame.size;
+    _glv.extent(size.width, size.height);
+    _glv.broadcastEvent(glv::Event::WindowResize);
+}
+
 - (void)drawRect:(NSRect)dirtyRect
 {
     [self drawView];
+}
+
+#pragma mark Key events
+
+- (void)applyModifierKey:(NSEvent *)theEvent
+{
+    NSUInteger mod = theEvent.modifierFlags;
+    _glv.setKeyModifiers(mod & NSShiftKeyMask,
+                         mod & NSAlternateKeyMask,
+                         mod & NSControlKeyMask,
+                         mod & NSAlphaShiftKeyMask,
+                         mod & NSCommandKeyMask);
+}
+
+- (void)processKeyEvent:(NSEvent *)theEvent
+{
+    [self applyModifierKey:theEvent];
+    
+    unsigned int key = [theEvent.charactersIgnoringModifiers characterAtIndex:0];
+    if (theEvent.type == NSKeyDown)
+    {
+        _glv.setKeyDown(key);
+    }
+    else if (theEvent.type == NSKeyUp)
+    {
+        _glv.setKeyUp(key);
+    }
+    
+    _glv.propagateEvent();
+}
+
+- (void)keyDown:(NSEvent *)theEvent
+{
+    [self processKeyEvent:theEvent];
+}
+
+- (void)keyUp:(NSEvent *)theEvent
+{
+    [self processKeyEvent:theEvent];
+}
+
+#pragma mark Mouse events
+
+- (void)mouseDown:(NSEvent *)theEvent
+{
+    [self processMouseEvent:theEvent];
+}
+
+- (void)mouseUp:(NSEvent *)theEvent
+{
+    [self processMouseEvent:theEvent];
+}
+
+- (void)mouseDragged:(NSEvent *)theEvent
+{
+    [self processMouseEvent:theEvent];
+}
+
+- (void)processMouseEvent:(NSEvent *)theEvent
+{
+    [self applyModifierKey:theEvent];
+    
+    // Flip vertically.
+    NSPoint point = theEvent.locationInWindow;
+    CGSize size = [self.window.contentView frame].size;
+    point.y = size.height - point.y;
+    
+    glv::space_t relx = point.x;
+    glv::space_t rely = point.y;
+    
+    if (theEvent.type == NSLeftMouseDown)
+    {
+        _glv.setMouseDown(relx, rely, glv::Mouse::Left, 0);
+    }
+    else if (theEvent.type == NSLeftMouseDragged)
+    {
+        _glv.setMouseMotion(relx, rely, glv::Event::MouseDrag);
+    }
+    else if (theEvent.type == NSLeftMouseUp)
+    {
+        _glv.setMouseUp(relx, rely, glv::Mouse::Left, 0);
+    }
+    
+    _glv.setMousePos(point.x, point.y, relx, rely);
+    _glv.propagateEvent();
 }
 
 #pragma mark Private methods
@@ -183,11 +393,11 @@ static CVReturn DisplayLinkOutputCallback(CVDisplayLinkRef displayLink,
     
     if (self.syphonClient)
     {
-        _glv.image = [self.syphonClient newFrameImageForContext:cglCtx];
+        _glv.mImageView.image = [self.syphonClient newFrameImageForContext:cglCtx];
     }
     
     _glv.drawGLV(size.width, size.height, 1.0 / 60);
-    _glv.image = nil;
+    _glv.mImageView.image = nil;
     
     // Flush and unlock DisplayLink.
     CGLFlushDrawable(cglCtx);

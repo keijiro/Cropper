@@ -16,14 +16,14 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="187" y="284" width="640" height="360"/>
+            <rect key="contentRect" x="88" y="131" width="800" height="600"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
             <view key="contentView" id="2" customClass="CropperGLView">
-                <rect key="frame" x="0.0" y="0.0" width="640" height="360"/>
+                <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
             <connections>
-                <outlet property="delegate" destination="-2" id="u2N-z8-r8l"/>
+                <outlet property="delegate" destination="-2" id="xDl-ZX-5lT"/>
             </connections>
         </window>
     </objects>

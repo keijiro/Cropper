@@ -1,5 +1,4 @@
 #import <Cocoa/Cocoa.h>
-#import "GLVX.h"
 
 @class SyphonClient;
 
@@ -8,7 +7,6 @@
     CVDisplayLinkRef _displayLink;
 }
 
-@property (readonly) GLVREF glv;
 @property (strong) SyphonClient *syphonClient;
 
 @end

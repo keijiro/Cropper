@@ -135,7 +135,6 @@
 		0FB9D6F81838635A00206B6D /* glv_view.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = glv_view.cpp; sourceTree = "<group>"; };
 		0FB9D6F91838635A00206B6D /* glv_view3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = glv_view3D.cpp; sourceTree = "<group>"; };
 		0FB9D6FA1838635A00206B6D /* glv_widget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = glv_widget.cpp; sourceTree = "<group>"; };
-		0FB9D713183863A300206B6D /* GLVX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLVX.h; sourceTree = "<group>"; };
 		0FB9D71A1838796500206B6D /* CropperWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CropperWindow.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -158,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				0F94402018349E8600C5FCA7 /* Syphon.xcodeproj */,
-				0FB9D712183863A300206B6D /* GLVX */,
 				0FB9D6CC1838635A00206B6D /* GLV */,
 				0F8C200B183447F5003F246D /* Cropper */,
 				0F8C2004183447F5003F246D /* Frameworks */,
@@ -292,15 +290,6 @@
 				0FB9D6FA1838635A00206B6D /* glv_widget.cpp */,
 			);
 			path = src;
-			sourceTree = "<group>";
-		};
-		0FB9D712183863A300206B6D /* GLVX */ = {
-			isa = PBXGroup;
-			children = (
-				0FB9D713183863A300206B6D /* GLVX.h */,
-			);
-			name = GLVX;
-			path = Cropper/GLVX;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

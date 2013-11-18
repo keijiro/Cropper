@@ -1,10 +1,9 @@
 #import <Cocoa/Cocoa.h>
-#import "GLVX.h"
 
 @class SyphonClient;
 @class CropperGLView;
 
-@interface CropperWindowController : NSWindowController <NSWindowDelegate>
+@interface CropperWindowController : NSWindowController
 {
     SyphonClient *_syphonClient;
     IBOutlet CropperGLView *_cropperGLView;
