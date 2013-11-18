@@ -133,6 +133,7 @@
 		0FB9D6F91838635A00206B6D /* glv_view3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = glv_view3D.cpp; sourceTree = "<group>"; };
 		0FB9D6FA1838635A00206B6D /* glv_widget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = glv_widget.cpp; sourceTree = "<group>"; };
 		0FB9D71A1838796500206B6D /* CropperWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CropperWindow.xib; sourceTree = "<group>"; };
+		0FB9D7211839B14300206B6D /* SyphonClientGLV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyphonClientGLV.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +199,7 @@
 				0F8C2018183447F5003F246D /* CropperAppDelegate.m */,
 				0F8C20391834486E003F246D /* CropperGLView.h */,
 				0F8C203A1834486E003F246D /* CropperGLView.mm */,
+				0FB9D7211839B14300206B6D /* SyphonClientGLV.h */,
 				0FB9D71A1838796500206B6D /* CropperWindow.xib */,
 				0F8C201A183447F5003F246D /* MainMenu.xib */,
 				0F8C201D183447F5003F246D /* Images.xcassets */,
