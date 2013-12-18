@@ -40,16 +40,16 @@ struct SyphonImageView : public glv::View
         glColor3f(1, 1, 1);
         
         glv::Rect& ir = imageRect;
-        glTexCoord2f(ir.left(), ir.top());
+        glTexCoord2f(ir.left(), ir.bottom());
         glVertex2f(0, 0);
         
-        glTexCoord2f(ir.right(), ir.top());
+        glTexCoord2f(ir.right(), ir.bottom());
         glVertex2f(width(), 0);
         
-        glTexCoord2f(ir.right(), ir.bottom());
+        glTexCoord2f(ir.right(), ir.top());
         glVertex2f(width(), height());
         
-        glTexCoord2f(ir.left(), ir.bottom());
+        glTexCoord2f(ir.left(), ir.top());
         glVertex2f(0, height());
         
         glEnd();
