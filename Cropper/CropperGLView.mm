@@ -74,7 +74,21 @@ static CVReturn DisplayLinkOutputCallback(CVDisplayLinkRef displayLink,
 - (void)updateServerList:(id)sender
 {
     NSArray *servers = [[SyphonServerDirectory sharedDirectory] servers];
-    if (servers.count > 0) [self startClient:[servers objectAtIndex:0]];
+    if (servers.count > 0)
+    {
+        if (_syphonClient == nil)
+        {
+            [self startClient:[servers objectAtIndex:0]];
+        }
+    }
+    else
+    {
+        if (_syphonClient)
+        {
+            [_syphonClient stop];
+            _syphonClient = nil;
+        }
+    }
 }
 
 - (void)startClient:(NSDictionary *)description
