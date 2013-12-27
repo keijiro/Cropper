@@ -89,13 +89,13 @@ struct SyphonImageView : public glv::View
             if (my < border)
             {
                 resizeTopTo(top() + dy);
-                if (!shift) imageRect.resizeTopTo(imageRect.top() + dy);
+                if (!shift) imageRect.resizeBottomTo(imageRect.bottom() - dy);
                 resizing = true;
             }
             else if (height() - border < my && my < height())
             {
                 resizeBottomTo(bottom() + dy);
-                if (!shift) imageRect.resizeBottomTo(imageRect.bottom() + dy);
+                if (!shift) imageRect.resizeTopTo(imageRect.top() - dy);
                 resizing = true;
             }
             
@@ -106,7 +106,7 @@ struct SyphonImageView : public glv::View
             else
             {
                 move(dx, dy);
-                if (!shift) imageRect.posAdd(dx, dy);
+                if (!shift) imageRect.posAdd(dx, -dy);
             }
         }
         
@@ -174,19 +174,30 @@ struct SyphonClientGLV : public glv::GLV
             else if (key >= '1' && key <= '9')
             {
                 NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-                NSString *configName = [NSString stringWithFormat:@"rect%c", key];
+                
+                NSString *viewConfigName = [NSString stringWithFormat:@"view_rect%c", key];
+                NSString *imageConfigName = [NSString stringWithFormat:@"image_rect%c", key];
+                
                 if (g.keyboard().meta())
                 {
-                    NSRect rect = CGRectMake(mImageView.left(), mImageView.top(), mImageView.width(), mImageView.height());
-                    [ud setObject:NSStringFromRect(rect) forKey:configName];
+                    NSRect viewRect = CGRectMake(mImageView.left(), mImageView.top(), mImageView.width(), mImageView.height());
+                    NSRect imageRect = CGRectMake(mImageView.imageRect.left(), mImageView.imageRect.top(), mImageView.imageRect.width(), mImageView.imageRect.height());
+                    [ud setObject:NSStringFromRect(viewRect) forKey:viewConfigName];
+                    [ud setObject:NSStringFromRect(imageRect) forKey:imageConfigName];
                     [ud synchronize];
                 }
                 else
                 {
-                    NSRect rect = NSRectFromString([ud valueForKey:configName]);
-                    mImageView.pos(rect.origin.x, rect.origin.y);
-                    mImageView.width(rect.size.width);
-                    mImageView.height(rect.size.height);
+                    NSRect viewRect = NSRectFromString([ud valueForKey:viewConfigName]);
+                    NSRect imageRect = NSRectFromString([ud valueForKey:imageConfigName]);
+                    
+                    mImageView.pos(viewRect.origin.x, viewRect.origin.y);
+                    mImageView.width(viewRect.size.width);
+                    mImageView.height(viewRect.size.height);
+                    
+                    mImageView.imageRect.pos(imageRect.origin.x, imageRect.origin.y);
+                    mImageView.imageRect.width(imageRect.size.width);
+                    mImageView.imageRect.height(imageRect.size.height);
                 }
             }
         }
