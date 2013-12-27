@@ -18,21 +18,6 @@
 @end
 
 #pragma mark
-#pragma mark DisplayLink Callbacks
-
-static CVReturn DisplayLinkOutputCallback(CVDisplayLinkRef displayLink,
-                                          const CVTimeStamp *now,
-                                          const CVTimeStamp *outputTime,
-                                          CVOptionFlags flagsIn,
-                                          CVOptionFlags *flagsOut,
-                                          void *displayLinkContext)
-{
-    CropperGLView *view = (__bridge CropperGLView *)displayLinkContext;
-    [view drawView];
-	return kCVReturnSuccess;
-}
-
-#pragma mark
 #pragma mark Class implementation
 
 @implementation CropperGLView
@@ -43,7 +28,6 @@ static CVReturn DisplayLinkOutputCallback(CVDisplayLinkRef displayLink,
 {
     NSOpenGLPixelFormatAttribute attributes[] = {
         NSOpenGLPFADoubleBuffer,
-        NSOpenGLPFAPixelBuffer,
         NSOpenGLPFAColorSize, 32,
         0
     };
@@ -56,12 +40,12 @@ static CVReturn DisplayLinkOutputCallback(CVDisplayLinkRef displayLink,
     _glv.broadcastEvent(glv::Event::WindowCreate);
     
     [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateServerList:) userInfo:self repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:1.0f / 60 target:self selector:@selector(updateFrame:) userInfo:self repeats:YES];
 }
 
-- (void)dealloc
+- (void)updateFrame:(id)sender
 {
-    CVDisplayLinkStop(_displayLink);
-    CVDisplayLinkRelease(_displayLink);
+    self.needsDisplay = YES;
 }
 
 - (BOOL)acceptsFirstResponder
@@ -73,27 +57,36 @@ static CVReturn DisplayLinkOutputCallback(CVDisplayLinkRef displayLink,
 
 - (void)updateServerList:(id)sender
 {
+    // Releases the client if it got invalid.
+    if (_syphonClient && !_syphonClient.isValid) _syphonClient = nil;
+    
+    // Retrives the server list.
     NSArray *servers = [[SyphonServerDirectory sharedDirectory] servers];
+
+    // Is there any server?
     if (servers.count > 0)
     {
-        if (_syphonClient == nil)
-        {
-            [self startClient:[servers objectAtIndex:0]];
-        }
+        // Uses the first server.
+        NSDictionary *serverDescription = [servers objectAtIndex:0];
+        
+        // Releases the old client if it's different from this one.
+        if (![serverDescription isEqualToDictionary:_syphonClient.serverDescription]) _syphonClient = nil;
+        
+        // Creates a client if there is no server.
+        if (_syphonClient == nil) [self startClient:serverDescription];
     }
     else
     {
-        if (_syphonClient)
-        {
-            [_syphonClient stop];
-            _syphonClient = nil;
-        }
+        // No server: it should be released.
+        if (_syphonClient) _syphonClient = nil;
     }
 }
 
 - (void)startClient:(NSDictionary *)description
 {
-    _syphonClient = [[SyphonClient alloc] initWithServerDescription:description options:nil newFrameHandler:nil];
+    _syphonClient = [[SyphonClient alloc] initWithServerDescription:description options:nil newFrameHandler:^(SyphonClient*){
+        self.needsDisplay = YES;
+    }];
 }
 
 #pragma mark NSOpenGLView methods
@@ -101,41 +94,15 @@ static CVReturn DisplayLinkOutputCallback(CVDisplayLinkRef displayLink,
 - (void)prepareOpenGL
 {
     [super prepareOpenGL];
-    
-    // Maximize framerate.
+
+    // Enable VSync.
     GLint interval = 1;
     [self.openGLContext setValues:&interval forParameter:NSOpenGLCPSwapInterval];
-    
-    // Initialize DisplayLink.
-    CVDisplayLinkCreateWithActiveCGDisplays(&_displayLink);
-    CVDisplayLinkSetOutputCallback(_displayLink, DisplayLinkOutputCallback, (__bridge void *)(self));
-    
-    CGLContextObj cglCtx = (CGLContextObj)(self.openGLContext.CGLContextObj);
-    CGLPixelFormatObj cglPF = (CGLPixelFormatObj)(self.pixelFormat.CGLPixelFormatObj);
-    CVDisplayLinkSetCurrentCGDisplayFromOpenGLContext(_displayLink, cglCtx, cglPF);
-    
-    CVDisplayLinkStart(_displayLink);
-    
-    // Add an observer for closing the window.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(windowWillClose:)
-                                                 name:NSWindowWillCloseNotification
-                                               object:self.window];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(windowDidResize:)
-                                                 name:NSWindowDidResizeNotification
-                                               object:self.window];
 }
 
 #pragma mark NSWindow methods
 
-- (void)windowWillClose:(NSNotification *)notification
-{
-    // DisplayLink need to be stopped manually.
-    CVDisplayLinkStop(_displayLink);
-}
-
-- (void)windowDidResize:(NSNotification *)notification
+- (void)update
 {
     CGSize size = self.frame.size;
     _glv.extent(size.width, size.height);
@@ -238,18 +205,15 @@ static CVReturn DisplayLinkOutputCallback(CVDisplayLinkRef displayLink,
 {
     CGLContextObj cglCtx = (CGLContextObj)(self.openGLContext.CGLContextObj);
     
-    // Lock DisplayLink.
-    CGLLockContext(cglCtx);
-    
     // Draw with GLV.
     CGSize size = self.frame.size;
     [self.openGLContext makeCurrentContext];
     
     SyphonImage *image = nil;
     
-    if (self.syphonClient)
+    if (_syphonClient)
     {
-        image = [self.syphonClient newFrameImageForContext:cglCtx];
+        image = [_syphonClient newFrameImageForContext:cglCtx];
     }
 
     if (image)
@@ -262,9 +226,7 @@ static CVReturn DisplayLinkOutputCallback(CVDisplayLinkRef displayLink,
     _glv.mImageView.imageTextureName = -1;
     image = nil;
     
-    // Flush and unlock DisplayLink.
     CGLFlushDrawable(cglCtx);
-    CGLUnlockContext(cglCtx);
 }
 
 @end
