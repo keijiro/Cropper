@@ -126,7 +126,9 @@ struct SyphonClientGLV : public glv::GLV
         "MOUSE DRAG : MOVE/RESIZE CROPPING WINDOW\n"
         "SHIFT DRAG : MOVE/RESIZE CONTENT OF WINDOW\n"
         "R          : RESET\n"
-        "SPACE      : SHOW/HIDE UI";
+        "SPACE      : SHOW/HIDE UI\n"
+        "1 - 9      : LOAD A PRESET\n"
+        "CMD + NUM  : SAVE A PRESET";
     }
     
     SyphonClientGLV()
@@ -168,6 +170,24 @@ struct SyphonClientGLV : public glv::GLV
             else if (key == 'r')
             {
                 mImageView.reset();
+            }
+            else if (key >= '1' && key <= '9')
+            {
+                NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+                NSString *configName = [NSString stringWithFormat:@"rect%c", key];
+                if (g.keyboard().meta())
+                {
+                    NSRect rect = CGRectMake(mImageView.left(), mImageView.top(), mImageView.width(), mImageView.height());
+                    [ud setObject:NSStringFromRect(rect) forKey:configName];
+                    [ud synchronize];
+                }
+                else
+                {
+                    NSRect rect = NSRectFromString([ud valueForKey:configName]);
+                    mImageView.pos(rect.origin.x, rect.origin.y);
+                    mImageView.width(rect.size.width);
+                    mImageView.height(rect.size.height);
+                }
             }
         }
         
