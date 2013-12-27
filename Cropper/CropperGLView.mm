@@ -104,6 +104,15 @@
 
 - (void)update
 {
+    [super update];
+    CGSize size = self.frame.size;
+    _glv.extent(size.width, size.height);
+    _glv.broadcastEvent(glv::Event::WindowResize);
+}
+
+- (void)reshape
+{
+    [super reshape];
     CGSize size = self.frame.size;
     _glv.extent(size.width, size.height);
     _glv.broadcastEvent(glv::Event::WindowResize);
